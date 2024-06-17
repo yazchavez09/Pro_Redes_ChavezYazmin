@@ -1,3 +1,2 @@
-2 / 0 = error (División por cero)
-2 / 0 = error (División por cero)
-4 / 0 = error (División por cero)
+6 / 0 = error Division incorrecta
+0 / 0 = error Division incorrecta
