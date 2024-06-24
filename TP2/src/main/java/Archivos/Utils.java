@@ -16,7 +16,7 @@ public class Utils {
     public static final String ANSI_GREEN_BRIGHT = "\u001B[92m";
     public static final String ANSI_YELLOW_BRIGHT = "\u001B[93m";
     public static final String ANSI_BLUE_BRIGHT = "\u001B[94m";
-    public static final String ANSI_PURPLE_BRIGHT = "\u001B[95m";  // Corregido
+    public static final String ANSI_PURPLE_BRIGHT = "\u001B[95m";
     public static final String ANSI_CYAN_BRIGHT = "\u001B[96m";
     
     public static final String ANSI_BOLD = "\u001B[1m";

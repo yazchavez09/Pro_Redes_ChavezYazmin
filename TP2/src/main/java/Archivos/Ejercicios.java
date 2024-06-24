@@ -14,34 +14,40 @@ import java.io.PrintStream;
 public class Ejercicios {
 
 	private static PrintStream ps = System.out;
+	private File archivo;
 
-	// Método para mostrar el menú.
+	// Menú infinito con las opciones :  Agregar producto, Mostrar , Salir
 	public void mostrarMenu() {
 		while (true) {
-			ps.println(Utils.ANSI_CYAN + "Menú" + Utils.ANSI_RESET);
-			ps.println(Utils.ANSI_GREEN + "1. Agregar producto" + Utils.ANSI_RESET);
-			ps.println(Utils.ANSI_GREEN + "2. Mostrar productos" + Utils.ANSI_RESET);
-			ps.println(Utils.ANSI_GREEN + "3. Probar identificación de números" + Utils.ANSI_RESET);
-			ps.println(Utils.ANSI_RED + "4. Salir" + Utils.ANSI_RESET);
-			ps.print(Utils.ANSI_YELLOW + "Seleccione una opción: " + Utils.ANSI_RESET);
+			ps.println(Utils.ANSI_CYAN + Utils.ANSI_BOLD + Utils.ANSI_UNDERLINE +"Menú" + Utils.ANSI_RESET);
+			ps.println();
+			ps.println(Utils.ANSI_GREEN_BRIGHT + "1. Agregar producto:" + Utils.ANSI_RESET);
+			ps.println();
+			ps.println(Utils.ANSI_PURPLE + "2. Mostrar productos" + Utils.ANSI_RESET);
+			ps.println();
+			ps.println(Utils.ANSI_RED_BRIGHT + "3. Salir" + Utils.ANSI_RESET);
+			ps.println();
+			ps.print(Utils.ANSI_YELLOW + "Elija una opción: " + Utils.ANSI_RESET);
 
 			String opcion = entradaDeDatos();
 
 			switch (opcion) {
 			case "1":
-				ps.println("1: Agregar producto");
+				ps.println();
+				ps.println(Utils.ANSI_GREEN + "1: Agregar producto" + Utils.ANSI_RESET);
+
 				agregarProducto();
 				break;
 			case "2":
-				ps.println("2: Mostrar productos");
+				ps.println();
+				ps.println(Utils.ANSI_PURPLE + "2: Mostrar productos" + Utils.ANSI_RESET);
+				ps.println();
 				mostrarProductos();
 				break;
+
 			case "3":
-				ps.println("3: Probar identificación de números");
-				ps.println(verificarTipoDato());
-				break;
-			case "4":
-				ps.println("Saliendo...");
+				ps.println();
+				ps.println(Utils.ANSI_RED + "Usted salió exitosamente" + Utils.ANSI_RESET);
 				return;
 			default:
 				ps.println(Utils.ANSI_RED + "Opción inválida. Intente nuevamente." + Utils.ANSI_RESET);
@@ -49,7 +55,7 @@ public class Ejercicios {
 		}
 	}
 
-	// Método para leer entrada de datos desde la consola.
+	// Método que permita leer texto de la consola y devolverlo como String
 	public String entradaDeDatos() {
 		String cadena = "";
 		try {
@@ -61,10 +67,9 @@ public class Ejercicios {
 		return cadena;
 	}
 
-	// Método para identificar si un texto es un número y devolverlo como int o
-	// float.
+	// Métodoque identifique si un texto es o no un numero ( devuelva si no es numero, si es un entero o si es un numero con coma)
 	public String verificarTipoDato() {
-		ps.println("Escriba :");
+		ps.println("Escriba el dato:");
 		String dato = entradaDeDatos();
 
 		try {
@@ -80,103 +85,106 @@ public class Ejercicios {
 		}
 	}
 
-	// Método para verificar si un texto es un número entero.
-	private boolean esEntero(String texto) {
+	// Método que permitan convertir texto (que sean valores numéricos) a números (devolviendo un Int o un Float)
+	public boolean esEntero(String texto) {
 		for (int i = 0; i < texto.length(); i++) {
-			int asciiValue = (int) texto.charAt(i);
-			if (asciiValue < 48 || asciiValue > 57) {
+			int carac = (int) texto.charAt(i);
+			if (carac < 48 || carac > 57) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	// Método para verificar si un texto es un número (entero o flotante).
-	private boolean esNumero(String texto) {
+	
+	public boolean esNumero(String texto) {
 		boolean puntoDecimal = false;
 
 		for (int i = 0; i < texto.length(); i++) {
-			int asciiValue = (int) texto.charAt(i);
+			int caracter = (int) texto.charAt(i);
 
-			if (asciiValue == 46 && !puntoDecimal) {
+			if (caracter == 46 && !puntoDecimal) {
 				puntoDecimal = true;
-			} else if (asciiValue < 48 || asciiValue > 57) {
+			} else if (caracter < 48 || caracter > 57) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	// Método para agregar un producto solicitando los datos al usuario.
+	// Pedirle al usuario que ingrese: Nombre de producto, Precio de Compra, Precio de Venta y Stock.
 	public void agregarProducto() {
-
-		ps.println("Ingrese el nombre del producto:");
+		ps.println();
+		ps.print(Utils.ANSI_BLUE_BRIGHT + "Ingrese el nombre del producto: " + Utils.ANSI_RESET);
 		String nombreProducto = entradaDeDatos();
 
-		ps.println("Ingrese el precio de compra:");
+			
+		ps.print(Utils.ANSI_BLUE_BRIGHT + "Ingrese el precio de compra: " + Utils.ANSI_RESET);
 		String precioCompraStr = entradaDeDatos();
 		if (!esNumero(precioCompraStr)) {
-			ps.println(Utils.ANSI_RED + "Error: el precio de compra no es válido." + Utils.ANSI_RESET);
+			ps.println(Utils.ANSI_RED_BRIGHT + "Error: el precio de compra no es válido." + Utils.ANSI_RESET);
 			return;
 		}
 		float precioCompra = Float.parseFloat(precioCompraStr);
 
-		ps.println("Ingrese el precio de venta:");
+		ps.print(Utils.ANSI_BLUE_BRIGHT + "Ingrese el precio de venta: " + Utils.ANSI_RESET);
 		String precioVentaStr = entradaDeDatos();
 		if (!esNumero(precioVentaStr)) {
-			ps.println(Utils.ANSI_RED + "Error: el precio de venta no es válido." + Utils.ANSI_RESET);
+			ps.println(Utils.ANSI_RED_BRIGHT + "Error: el precio de venta no es válido." + Utils.ANSI_RESET);
 			return;
 		}
 		float precioVenta = Float.parseFloat(precioVentaStr);
 
-		ps.println("Ingrese el stock:");
+		ps.print(Utils.ANSI_BLUE_BRIGHT + "Ingrese el stock: " + Utils.ANSI_RESET);
 		String stockStr = entradaDeDatos();
 		if (!esEntero(stockStr)) {
-			ps.println(Utils.ANSI_RED + "Error: el stock no es válido." + Utils.ANSI_RESET);
+			ps.println(Utils.ANSI_RED_BRIGHT + "Error: el stock no es válido." + Utils.ANSI_RESET);
 			return;
 		}
 		int stock = Integer.parseInt(stockStr);
 
 		guardarProducto(nombreProducto, precioCompra, precioVenta, stock);
 
-		ps.println(Utils.ANSI_GREEN + "Producto agregado correctamente:" + Utils.ANSI_RESET);
-
+		ps.println();
+		ps.println(Utils.ANSI_GREEN_BRIGHT + "Producto agregado correctamente." + Utils.ANSI_RESET);
+		ps.println();
 	}
 
-	// ------------------------------------------------------------------------------------------------
+	
 
-	// Armar métodos que creen archivos ( Inventario.dat )
-
-	public void crearArchivo() {
-		File archivo = new File("inventario.dat");
-		if (!archivo.exists()) {
-			try {
-				archivo.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	// Armar método que cree archivo ( Inventario.dat )
+		public void crearArchivo() {
+		    archivo = new File("inventario.dat");
+		    if (!archivo.exists()) {
+		        try {
+		            archivo.createNewFile();
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+		    }
 		}
-	}
 
-	// Método para guardar un producto en el archivo de inventario
+	// Métodos que permitan Agregar los datos pedidos al usuario a un archivo de texto plano: los datos van separados por  ( ; ).
 	public void guardarProducto(String nombre, float precioCompra, float precioVenta, int stock) {
 		try {
-
 			BufferedWriter bw = new BufferedWriter(new FileWriter("inventario.dat", true));
 			bw.write(nombre + ";" + precioCompra + ";" + precioVenta + ";" + stock + "\n");
+		
+			 bw.close(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+	//Método que leea de archivos de texto plano
 	// Método para mostrar los productos almacenados en el archivo de inventario
 	public void mostrarProductos() {
 
-		ps.println(Utils.ANSI_CYAN + "Lista de Productos" + Utils.ANSI_RESET);
+		ps.println(Utils.ANSI_CYAN + Utils.ANSI_BOLD + Utils.ANSI_UNDERLINE + "Lista de Productos" + Utils.ANSI_RESET);
+		ps.println();
 
 		try {
 
-			FileReader fr = new FileReader("inventario.dat"); // no me deja poner true
+			FileReader fr = new FileReader("inventario.dat");
 
 			BufferedReader br = new BufferedReader(fr);
 
@@ -190,11 +198,12 @@ public class Ejercicios {
 					float precioCompra = Float.parseFloat(datos[1]);
 					float precioVenta = Float.parseFloat(datos[2]);
 					int stock = Integer.parseInt(datos[3]);
-
-					ps.println("Nombre del producto: " + nombre);
-					ps.println("Precio de compra: " + precioCompra);
-					ps.println("Precio de venta: " + precioVenta);
-					ps.println("Stock: " + stock);
+					
+					ps.println(Utils.ANSI_BLUE_BRIGHT + "Nombre del producto: " + Utils.ANSI_RESET + nombre);
+					ps.println(Utils.ANSI_BLUE_BRIGHT + "Precio de compra: " + Utils.ANSI_RESET + precioCompra);
+					ps.println(Utils.ANSI_BLUE_BRIGHT + "Precio de venta: " + Utils.ANSI_RESET + precioVenta);
+					ps.println(Utils.ANSI_BLUE_BRIGHT + "Stock: " + Utils.ANSI_RESET + stock);
+					ps.println();
 				}
 			}
 

@@ -9,6 +9,7 @@ public class main {
 		// TODO Auto-generated method stub
 
 		Ejercicios ejercicios = new Ejercicios();
+		
 		ejercicios.mostrarMenu();
 
 	}
