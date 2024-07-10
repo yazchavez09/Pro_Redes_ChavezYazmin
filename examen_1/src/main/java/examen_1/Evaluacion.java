@@ -18,7 +18,7 @@ public class Evaluacion {
 	static PrintStream ps = new PrintStream(System.out);
 
 	public static File original = new File("datos.dat");
-	public static File copia = new File(" tuti_fruti.txt");
+	public static File copia = new File("tuti_fruti.csv");
 	
 	public static void mostrarMenu() {
 		while (true) {
@@ -76,25 +76,26 @@ public class Evaluacion {
 
 		try {
 
-			FileReader fr = new FileReader("datos.dat");
+			FileReader fr = new FileReader("tuti_fruti.csv");
 
 			BufferedReader br = new BufferedReader(fr);
 
 			String linea;
 
-			ps.println(Utils.ANSI_BLUE + "COLOR\t" + "ANIMAL\t" + "COSA\t" + "COMIDA\t" + Utils.ANSI_RESET);
+			ps.println(Utils.ANSI_BLUE + "LETRA\t" + "COLOR\t\t" + "ANIMAL\t" + "COSA\t" + "COMIDA\t" + Utils.ANSI_RESET);
 
 			while ((linea = br.readLine()) != null) {
 
-				String[] datos = linea.split("\\.");
+				String[] datos = linea.split("\\;");
 
 				String Letra = datos[0];
 				String Animal = datos[1];
 				String Color = datos[2];
 				String Cosa = datos[3];
 				String Comida = datos[4];
-
-				ps.print(Utils.ANSI_GREEN + Animal + "\t" + Utils.ANSI_RESET);
+				
+				ps.print(Utils.ANSI_YELLOW + Letra + "\t" + Utils.ANSI_RESET); 
+				ps.print(Utils.ANSI_GREEN + Animal + "\t\t" + Utils.ANSI_RESET);
 				ps.print(Utils.ANSI_RED + Color + "\t" + Utils.ANSI_RESET);
 				ps.print(Utils.ANSI_PURPLE + Cosa + "\t" + Utils.ANSI_RESET);
 				ps.print(Utils.ANSI_CYAN + Comida + "\t" + Utils.ANSI_RESET);
@@ -170,10 +171,12 @@ public class Evaluacion {
 	static void archivoexiste() {
 
 		if (!original.exists()) {
-			mostrarMenu();
+			if( copia.exists() )
+				mostrarMenu();
 
 		} else if (original.exists()) {
 			editarArchivo();
+			mostrarMenu();
 		}
 	
 }
