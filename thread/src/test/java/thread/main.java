@@ -1,40 +1,79 @@
 package thread;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class main {
 
 	public static void main(String[] args) {
+		
 		// --------//
 		// Obtenemos la marca de tiempo nical del S.O para
 		// generar comparacione en las tareas.
-		// long tiempoInicial = System.currentTimeMillis();
+		
 
 		// --- Aca despues vamos a aplicar Patrones de Diseño FACTORY ---
-		Persona cli1 = new Persona("Javi", 25632568, new String[] { "Arroz", "Coca-Cola", "Vela Cumple", "Globos" },
-				new int[] { 10, 5, 2, 3 });
-		Persona cli2 = new Persona("Juan", 36589741, new String[] { "Taza", "Cuchara", "Cafe" }, new int[] { 1, 1, 1 });
-		Persona cli3 = new Persona("Enrique", 69874521, new String[] { "Pan", "Manteca", "Cuchillo de Untar" },
-				new int[] { 2, 1, 1 });
-		Persona cli4 = new Persona("Maria", 45534578,
-				new String[] { "Vodka", "Fernet", "Speed", "Jugo de Naranja", "Coca-Cola" },
-				new int[] { 2, 2, 8, 5, 4 });
+		Persona cli1 = new Persona("Pepito", 45678952,
+				new HashMap<String, Integer>(Map.of("Arroz", 10, "Coca-Cola", 5, "Vela Cumple", 2, "Globos", 3)));
+		Persona cli2 = new Persona("Juan", 36589741,
+				new HashMap<String, Integer>(Map.of("Taza", 1, "Cuchara", 1, "Cafe", 1)));
+		Persona cli3 = new Persona("Enrique", 69874521,
+				new HashMap<String, Integer>(Map.of("Pan", 2, "Manteca", 1, "Cuchillo de Untar", 1)));
+		Persona cli4 = new Persona("Maria", 45534578, new HashMap<String, Integer>(
+				Map.of("Vodka", 2, "Fernet", 2, "Speed", 8, "Jugo de Naranja", 5, "Coca-Cola", 4)));
 		Persona cli5 = new Persona("Sofia", 63642158,
-				new String[] { "Pritty-Limon", "Esponja", "Guante", "Detergente" }, new int[] { 3, 2, 2, 1 });
-		Persona cli6 = new Persona("Hector", 25632568, new String[] { "Mandioca", "Papayas", "Biscochitos" },
-				new int[] { 3, 2, 2 });
-		Persona cli7 = new Persona("Maxi", 68574125, new String[] { "yerba", "Azucar", "Edulcurante", "Yuyos varios" },
-				new int[] { 2, 1, 2, 3 });
-		Persona cli8 = new Persona("Laura", 25632568, new String[] { "Tomates", "Budin", "Nesquik", "Leche" },
-				new int[] { 3, 2, 1, 3 });
-		Persona cli9 = new Persona("Matias", 12458524, new String[] { "Medialuna", "Pepino", "Bagio" },
-				new int[] { 12, 3, 2 });
+				new HashMap<String, Integer>(Map.of("Pritty-Limon", 3, "Esponja", 2, "Guante", 2, "Detergente", 1)));
+		Persona cli6 = new Persona("Hector", 25632568,
+				new HashMap<String, Integer>(Map.of("Mandioca", 3, "Papayas", 2, "Biscochitos", 2)));
+		Persona cli7 = new Persona("Maxi", 68574125,
+				new HashMap<String, Integer>(Map.of("yerba", 2, "Azucar", 1, "Edulcurante", 2, "Yuyos varios", 3)));
+		Persona cli8 = new Persona("Laura", 25632568,
+				new HashMap<String, Integer>(Map.of("Tomates", 3, "Budin", 2, "Nesquik", 1, "Leche", 3)));
+		Persona cli9 = new Persona("Matias", 12458524,
+				new HashMap<String, Integer>(Map.of("Medialuna", 12, "Pepino", 3, "Bagio", 2)));
 		Persona cli10 = new Persona("Renzo", 25632568,
-				new String[] { "Test Embarazo", "Lubricante", "Hoas A4", "Pañales" }, new int[] { 1, 3, 2, 3 });
+				new HashMap<String, Integer>(Map.of("Test Embarazo", 1, "Lubricante", 3, "Hojas A4", 2, "Pa�ales", 3)));
 
+		// Crear un Array con Datos iniciales
+		// Crear un Map con datos iniciales
+		// new ArrayList<>( List.of( elem1, elem2, elem3, ...) )
+		// new HashMap<String, Integer>( Map.of( k1,v2 ,k2,v2 , ... ) )
+
+		ArrayList<Persona> colaCaja1 = new ArrayList<>();
+		colaCaja1.add(cli10);
+		colaCaja1.add(cli9);
+		colaCaja1.add(cli5);
+
+		ArrayList<Persona> colaCaja2 = new ArrayList<>();
+		colaCaja2.add(cli1);
+		colaCaja2.add(cli8);
+		colaCaja2.add(cli2);
+		colaCaja2.add(cli3);
+		
 		// Esta clase hereda de Thread, asi que es un hilo y tiene actividades para
 		// hacer.
-		CajaHilo caja1 = new CajaHilo(); // objeto que es un hilo
+		long tiempoInicial = System.currentTimeMillis();  
+		
+		CajaHilo caja1 = new CajaHilo(7, "Raul", tiempoInicial, colaCaja1); // objeto que es un hilo
+		caja1.setName("Caja_1");
 		caja1.start();
-
+		
+		
+		CajaHilo Caja2 = new CajaHilo(8, "Roberto",  tiempoInicial,  caja1, colaCaja2);
+		Caja2.setName("Caja_2");
+ 
+		Caja2.start();
+		
+		/*
+		Thread Caja2 = new Thread(
+				new CajaHilo(8, "Roberto", tiempoInicial, colaCaja2), 
+				"Caja_2"  //nombre del HILO
+				);
+		Caja2.start();
+		 */
+		
 		// Esta clase IMPLEMENT Runnabke asi que no es un hilo, es solamente una tarea a
 		// realizar.
 		Seguridad tareasDeSeguridad = new Seguridad();
@@ -42,18 +81,20 @@ public class main {
 		guardia1.setPriority(Thread.MAX_PRIORITY); //0-10 Enum
 		guardia1.start(); 
 		
-		
-		//cuando la tarea es muy cortita para realizar conviene armar el Hilo directo si crear Class nueva
-		Thread empleado = new Thread(
-				new Runnable() {
-					
-				@Override
-			public void run() {
-				// TODO Auto-generated method stub
+		// cuando la tarea es muy cortita para realizar
+				// conviene armar el Hilo directo sin crear Class nuevas
+				Thread empleado1 = new Thread(new Runnable() {
+					@Override
+					public void run() {
 
+					}
+				});
+				empleado1.setName("Empleado1");
+				empleado1.setPriority(Thread.MIN_PRIORITY);
+				empleado1.start();
+				
+				//FIN HILO
 			}
-		});
-	}
 
 	public void metodosHilos(long tiempoInicial) {
 		// Ciclo de vida: NEW
