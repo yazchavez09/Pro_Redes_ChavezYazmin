@@ -8,7 +8,7 @@ public class mainCliente {
 		//
 		
 		//puerto de com en una computadora: ej puerto 80 : punto d comunicacion para ese programa.
-		
+		Cliente cli = new Cliente();
 	}
 
 }
