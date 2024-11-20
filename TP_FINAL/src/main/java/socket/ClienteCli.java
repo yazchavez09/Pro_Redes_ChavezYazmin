@@ -88,7 +88,9 @@ public class ClienteCli implements Runnable {
 					
 					if(cli.getNickName().toLowerCase().equalsIgnoreCase(destino) && this.isConected )
 					{
-						cli.dosCliente.writeUTF(Servidor.ANSI_YELLOW 
+			//Punto 3: Cuando recibe un mensaje un usuario de un destinatarios especifico(MP) marcar el mensaje en un color distintivo. hacer distincion de MP y mensaje GLOBAL
+
+						cli.dosCliente.writeUTF(Servidor.ANSI_PURPLE 
 								+this.nickName
 								+ ":"
 								+Servidor.ANSI_RESET
