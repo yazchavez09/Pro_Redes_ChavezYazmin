@@ -28,7 +28,7 @@ public class Arbitro {
         long min = TimeUnit.MILLISECONDS.toMinutes(tiempoActual);
         long seg = TimeUnit.MILLISECONDS.toSeconds(tiempoActual) % 60;
 
-        // Mensaje con colores según lo solicitado
+        
         log.info(Utils.ANSI_BLUE+"Fecha: " + java.time.LocalDateTime.now() + "\n" + Utils.ANSI_RESET + Utils.ANSI_RED +
                 "Equipo: " + equipo.getNombreEquipo() + "\n" + Utils.ANSI_RESET + Utils.ANSI_RED +
                 "Atleta: " + atleta.getName() + "\n" + Utils.ANSI_RESET + Utils.ANSI_RED + equipo.getActividadActual() + "\n"  + Utils.ANSI_RESET + Utils.ANSI_RED +
